@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import LoadingSpinner from "../Loading/Loading";
+import './Profile.css'
 // import { ContainerFlex, InputBox, Label } from "../StylesPages/ProfileStyles";
 // import { BackgroundImg2, Header2, BackdropBox2, ContainInput } from "../StylesPages/SignupStyles";
 
@@ -13,28 +15,52 @@ const Profile = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const [insureData, setInsureData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const url = 'http://localhost:8000';
   
+  const handledelete = (e)=>{
+    e.preventDefault()
+    // console.log(e.target.name);
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    axios
+      .delete(url + "/insure/user/"+e.target.name,{
+        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
+      })
+      .then((res) => {
+        alert("remove package done");
+        navigate("/");
+        // document.cookies.set("jwt",token)
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          alert("remove package fail");
+        } else {
+          console.log(err);
+        }
+      });
+  }
+
 useEffect(()=>{
+    setIsLoading(true)
     axios.get(url + "/user/"+user_id,{
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
       })
       .then((res)=>{
-        console.log(res.data)
-        setUserData(res.data)
-        res.data.users_user_insure.map(item=>{
-            const insure =[]
-            axios.get(url + "/insure/"+item.insure_id,{
-                headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
-              })
-              .then(res =>{
-                console.log(res.data);
-                let detail = <h2> name : {res.data.name} premium : {res.data.premium} compensation : {res.data.compensation} date : {item.date_buy}</h2>
-                insure.push(detail)
-              })
-              setInsureData(insure)
-        })
         
+        setUserData(res.data)
+        const insure =[]
+        res.data.users_user_insure.map(item=>{
+          let ht = [<form className="mypack" name={item.id} onSubmit={handledelete}>
+                      <h4>name : {item.insure.name}</h4>
+                      <h4>premium : {item.insure.premium}</h4>
+                      <h4>compensation : {item.insure.compensation}</h4>
+                      <input className="del-btn" type="submit" value="Remove"/>
+          </form>]
+          insure.push(ht)
+        })
+        setInsureData(insure)
+        setIsLoading(false)
       })
       .catch(err=>{
         console.log(err);
@@ -59,7 +85,7 @@ useEffect(()=>{
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
       })
       .then((res) => {
-        console.log(res);
+        
         navigate("/");
         // document.cookies.set("jwt",token)
       })
@@ -75,8 +101,8 @@ useEffect(()=>{
   return (
     <div>
         <h2>Profile form</h2>
-        <div className="container-input">
-          <form onSubmit={handleSubmit}>
+        
+          <form className="container-input" onSubmit={handleSubmit}>
           
             username:{" "}
             <input
@@ -86,7 +112,7 @@ useEffect(()=>{
               defaultValue={userData.username}
               required
             />
-            <br />
+           
             firstname:{" "}
             <input
               type="text"
@@ -103,7 +129,7 @@ useEffect(()=>{
               onChange={handleChange}
               required
             />
-            <br />
+           
             email:{" "}
             <input
               type="text"
@@ -114,13 +140,13 @@ useEffect(()=>{
             />
             birthday:{" "}
             <input type="date" name="date_of_birth" defaultValue={userData.date_of_birth} onChange={handleChange} required />
-            <br />
-            <br />
-            <input type="submit" value='Edit'/>
+            
+            <input className="edit-btn" type="submit" value='Edit'/>
           </form>
-        </div>
+        
         <div className="packages">
             <h2>my insurances</h2>
+            {isLoading ? <LoadingSpinner /> : null}
             {insureData}
         </div>
     </div>

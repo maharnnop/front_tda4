@@ -1,0 +1,9 @@
+.main{
+    border: 10px solid rgb(240, 115, 115);
+    border-radius: 10%;
+    background-color: rgb(255, 219, 219);;
+    margin: 30px;
+}
+.name{
+    color: rgb(255,0,144);
+}

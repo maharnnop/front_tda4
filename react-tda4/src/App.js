@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile";
 import PackageDetail from "./components/PackageDetail/PackageDetail";
 import Invest from "./components/Invest/Invest";
 import InvestDetail from "./components/InvestDetail/InvestDetail";
+import Dashboard from "./components/Dashboard/Dashboard";
 function App() {
   return (
     <div className="App">
@@ -23,6 +24,7 @@ function App() {
           <Route path="/packages/:id" element={<PackageDetail />} />
           <Route path="/fund/:id" element={<InvestDetail />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/invest" element={<Invest />} />
           {/* <Route path="/profile" element={<Profile />} /> */}
         </Routes>

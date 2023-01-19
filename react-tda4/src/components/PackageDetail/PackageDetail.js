@@ -8,6 +8,7 @@ const PackageDetail =() =>{
     const user_id =jwt_decode(localStorage.getItem("jwt"))['user_id']
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    const [userData, setUserData] = useState(true)
     const [packages, setPackages] = useState([]);
     const [cars, setCars] = useState([]);
     const [qr, setQr] = useState('');
@@ -37,6 +38,13 @@ const PackageDetail =() =>{
     };
     console.log(packages.type);
     useEffect(() => {
+      axios.get(url + "/user/"+user_id,{
+        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      })
+      .then(res =>{
+        console.log(res.data);
+        setUserData(res.data.users_user_insure.some(item=>item.insure_id === parseInt(id)))
+      }).catch(err =>{console.log(err);})
       getPackages();
       // if (localStorage.getItem("jwt") !== null) {
       //   const decoded = jwt_decode(localStorage.getItem("jwt"));
@@ -83,7 +91,6 @@ const PackageDetail =() =>{
    
     const buyForm = ( 
       <form onSubmit={handleBuy}>
-        Choose a car: 
         {/* <CarList name="cars" id="cars">
           {carlist}
         </CarList> */}
@@ -102,7 +109,7 @@ const PackageDetail =() =>{
               <b>for </b>
               {/* {packages.type === undefined ? null : packages.type.join(",")} */}
               <p>{packages.descript}</p>
-              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> : buyForm}
+              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> :userData ? <h3>already buy</h3>: buyForm}
             </div>
           </div>
           <div id="modal" style={{display: qr !== "" ? 'block' : 'none' }}> 

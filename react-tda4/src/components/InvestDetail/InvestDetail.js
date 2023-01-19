@@ -9,11 +9,19 @@ const InvestDetail =() =>{
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     const [packages, setPackages] = useState([]);
+    const [userData, setUserData] = useState(true)
     const { id } = useParams();
     const [investing, setInvesting] = useState({insure_id:id,invest_id:user_id})
     const [qr, setQr] = useState('');
     const url = 'http://localhost:8000';
     const getPackages= () =>{
+      axios.get(url + "/user/"+user_id,{
+        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      })
+      .then(res =>{
+        console.log(res.data);
+        setUserData(res.data.users_invest_insure.some(item=>item.insure_id === parseInt(id)))
+      }).catch(err =>{console.log(err);})
       axios
         .get(url + "/insure/" + id,{
           headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
@@ -45,7 +53,7 @@ const InvestDetail =() =>{
         .then((res) => {
           console.log(res.data);
           alert("Invest completed");
-          navigate("/");
+          navigate("/invest");
 
       //   axios.post(url +"/qrgen/generate",{
       //     amount: parseFloat(packages.cost)
@@ -88,7 +96,8 @@ const InvestDetail =() =>{
               <b>for </b>
               {/* {packages.type === undefined ? null : packages.type.join(",")} */}
               <p>{packages.descript}</p>
-              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> : buyForm}
+              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> :userData ? <h3>already buy</h3>: buyForm}
+              
             </div>
           </div>
           <div id="modal" style={{display: qr !== "" ? 'block' : 'none' }}> 
