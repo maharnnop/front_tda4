@@ -52,9 +52,9 @@ useEffect(()=>{
         const insure =[]
         res.data.users_user_insure.map(item=>{
           let ht = [<form className="mypack" name={item.id} onSubmit={handledelete}>
-                      <h4>name : {item.insure.name}</h4>
-                      <h4>premium : {item.insure.premium}</h4>
-                      <h4>compensation : {item.insure.compensation}</h4>
+                      <h3><span></span>{item.insure.name}</h3>
+                      <h3><span>premium : </span>{item.insure.premium}</h3>
+                      <h3><span>compensate : </span>{item.insure.compensation}</h3>
                       <input className="del-btn" type="submit" value="Remove"/>
           </form>]
           insure.push(ht)
@@ -100,7 +100,7 @@ useEffect(()=>{
 
   return (
     <div>
-        <h2>Profile form</h2>
+        <h1>Profile form</h1>
         
           <form className="container-input" onSubmit={handleSubmit}>
           

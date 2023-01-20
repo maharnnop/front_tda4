@@ -3,6 +3,24 @@
     align-items: center;
     justify-content: center;
 }
-.container-dashboard{
-    
+
+.myfund{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 100px 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-left: 50px;
+    background-color: rgb(196, 207, 251);
+    /* border-radius: 20px; */
+    border: 5px solid rgb(6, 45, 124);
+    justify-items: start;
+    align-items: center;
+}
+.myfund input{
+    width: 70%;
+}
+.Edit-btn{
+    grid-area: 1/4/2/5;
+    width: 80px;
+    height: 40px;
 }

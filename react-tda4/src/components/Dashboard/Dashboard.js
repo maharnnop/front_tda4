@@ -72,10 +72,10 @@ useEffect(()=>{
         const chart_name =[]
         res.data.users_invest_insure.map(item=>{
           let ht = [<form name={item.id} className="myfund" onSubmit={handleEdit}>
-                      <h4>name : {item.insure.name}</h4>
+                      <h4>{item.insure.name}</h4>
                       <h4>invest : <input name="cost" defaultValue={item.cost}/></h4>
                       <h4>revenue : {item.revenue}</h4>
-                      <input className="edit-btn" type="submit" value="edit" />
+                      <input className="Edit-btn" type="submit" value="edit" />
                       <button className="del-btn" name={item.id} onClick={handleDelete}>Remove</button>
           </form>]
           chart_value.push(item.cost+item.revenue)
@@ -102,7 +102,7 @@ useEffect(()=>{
 
   return (
     <div>
-        <h2>summary Chart</h2>
+        <h1>summary Chart</h1>
             {/* <DonutChart data={chartData}/> */}
             <div className="chart">
               {chartData}

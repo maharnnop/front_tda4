@@ -29,6 +29,10 @@ function App() {
           {/* <Route path="/profile" element={<Profile />} /> */}
         </Routes>
       </main>
+      <footer>
+        <h2>insurances fun </h2>
+        <h3><span>About us : </span>@KWANMHN</h3>
+      </footer>
     </div>
   );
 }

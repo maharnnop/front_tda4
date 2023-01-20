@@ -27,7 +27,7 @@ const Index = () =>{
 
   return (
     <div >
-      <h1>Insurance Packages</h1>
+      <h1 >Insurance Packages</h1>
        {isLoading ? <LoadingSpinner /> : null}
       <div className="container-package">{packages}</div>
       

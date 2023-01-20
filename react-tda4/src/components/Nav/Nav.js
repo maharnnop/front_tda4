@@ -17,10 +17,10 @@ function Nav() {
       <Link to="/">
         <img
           style={{ height: "70px" }}
-          src="https://drive.google.com/uc?id=1C_LXEXZfAW3s7UwHXST5GZu8iEJX0zAf&authuser=0"
+          src="https://media.istockphoto.com/id/613873370/vector/family-insurance-icon-flat-design.jpg?s=612x612&w=0&k=20&c=LUU3l6vSJbhEYPEJUVJpvl2MO4k_UQyCw1eTYthcIl8="
         />
       </Link>
-            <h3 className="username">User : {username}</h3>
+            <h3 className="username"><span>User :</span> {username}</h3>
       <div className="nav-menu" showToggle={showToggle}>
           <div className="nav-list">
             <Link to="/">Packages</Link>
@@ -46,7 +46,7 @@ function Nav() {
         <Link to="/">
           <img
             style={{ height: "70px" }}
-            src="https://drive.google.com/uc?id=1C_LXEXZfAW3s7UwHXST5GZu8iEJX0zAf&authuser=0"
+            src="https://media.istockphoto.com/id/613873370/vector/family-insurance-icon-flat-design.jpg?s=612x612&w=0&k=20&c=LUU3l6vSJbhEYPEJUVJpvl2MO4k_UQyCw1eTYthcIl8="
           />
         </Link>
         <div className="nav-menu" showToggle={showToggle}>

@@ -41,7 +41,7 @@ const Login = ()=>{
     return (
         <div>
     
-            <h2>Welcome Back !</h2>
+            <h1>Welcome Back !</h1>
     
             <form onSubmit={handleSubmit}>
               <input type="text" placeholder="Username" name="username" onChange={handleChange}/>{" "}
@@ -50,9 +50,9 @@ const Login = ()=>{
               
               <input type="submit" value='Login'/>
             </form>
-    
+            <br/> 
             <Link to="/signup" >
-              First time here ? Let's sign up
+              Let's sign up
             </Link>
         
         </div>

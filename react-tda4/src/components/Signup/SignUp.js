@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import './Signup.css'
 // import { ContainerFlex, InputBox, Label } from "../StylesPages/ProfileStyles";
 // import { BackgroundImg2, Header2, BackdropBox2, ContainInput } from "../StylesPages/SignupStyles";
 
@@ -46,9 +47,9 @@ const SignUp = (props) => {
 
   return (
     <div>
-        <h2>Registration form</h2>
-        <div className="container-input">
-          <form onSubmit={handleSubmit}>
+        <h1>Registration form</h1>
+        <div >
+          <form  className="container-signup" onSubmit={handleSubmit}>
             firstname:{" "}
             <input
               type="text"
@@ -89,7 +90,7 @@ const SignUp = (props) => {
               required
             />
             <br />
-            <input type="submit" value='Sign-Up'/>
+            <input className="signup-btn" type="submit" value='Sign-Up'/>
           </form>
         </div>
     </div>

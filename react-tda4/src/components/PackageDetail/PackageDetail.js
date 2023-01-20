@@ -2,6 +2,8 @@ import React, { Component, useState, useEffect} from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, Link,useNavigate,useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import './PackageDetail.css'
+import LoadingSpinner from "../Loading/Loading"
 
 const PackageDetail =() =>{
   const navigate = useNavigate();
@@ -10,11 +12,13 @@ const PackageDetail =() =>{
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     const [userData, setUserData] = useState(true)
     const [packages, setPackages] = useState([]);
+    const [isLoading, setIsLoading] =useState(false)
     const [cars, setCars] = useState([]);
     const [qr, setQr] = useState('');
     const { id } = useParams();
     const url = 'http://localhost:8000';
     const getPackages= () =>{
+      
       axios
         .get(url + "/insure/" + id,{
           headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
@@ -25,19 +29,9 @@ const PackageDetail =() =>{
   
         .catch((err) => console.log(err));
     }
-    const myCarList = (userId) => {
-      axios
-        .get(url + "/cars/mycar/" + userId)
-        .then((res) => {
-          console.log(res.data);
-  
-          setCars(res.data);
-        })
-  
-        .catch((err) => console.log(err));
-    };
     console.log(packages.type);
     useEffect(() => {
+      setIsLoading(true)
       axios.get(url + "/user/"+user_id,{
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
       })
@@ -46,10 +40,7 @@ const PackageDetail =() =>{
         setUserData(res.data.users_user_insure.some(item=>item.insure_id === parseInt(id)))
       }).catch(err =>{console.log(err);})
       getPackages();
-      // if (localStorage.getItem("jwt") !== null) {
-      //   const decoded = jwt_decode(localStorage.getItem("jwt"));
-        // myCarList(decoded.id);
-      // }
+      setIsLoading(false)
     }, []);
     
     const handleBuy = (e) => {
@@ -67,19 +58,6 @@ const PackageDetail =() =>{
           console.log(res.data);
           alert("Buy completed");
           navigate("/");
-
-      //   axios.post(url +"/qrgen/generate",{
-      //     amount: parseFloat(packages.cost)
-      // })
-      // .then(res =>{
-      //   console.log('good', res)
-      //   console.log(res);
-      //   setQr(res.data.Result)
-      // })
-      // .catch(err =>{
-      //   console.log('bad', err)
-      // })
-          
         })
   
         .catch((err) => {
@@ -91,9 +69,6 @@ const PackageDetail =() =>{
    
     const buyForm = ( 
       <form onSubmit={handleBuy}>
-        {/* <CarList name="cars" id="cars">
-          {carlist}
-        </CarList> */}
         <input className="buyBtn" type="submit" value="BUY" />
         
       </form>
@@ -101,27 +76,20 @@ const PackageDetail =() =>{
     return (
       <div>
         <div className="box-card">
-          <img src={packages.img_url} />
             <h1>{packages.name}</h1>
+            {isLoading ? <LoadingSpinner /> : null}
             {/* <h2>{Intl.NumberFormat().format(packages.premium)} Baht / Year</h2> */}
-          <div>
-            <div>
-              <b>for </b>
+          <div className="insure-detail">
+          <img className="img-detail" src={packages.img_url} />
+            <div className="descript-insure">
+              <h3><span>Description : </span></h3>
               {/* {packages.type === undefined ? null : packages.type.join(",")} */}
-              <p>{packages.descript}</p>
-              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> :userData ? <h3>already buy</h3>: buyForm}
+              <h3> - {packages.descript}</h3>
+              <h3><span>Premium : </span>{packages.premium}</h3>
+              <h3><span>Compensate : </span>{packages.compensation}</h3>
             </div>
+              {localStorage.getItem("jwt") === null ? <Link to="/login"> <h3>Login to buy</h3> </Link>:userData ? <Link to="/profile"><h3>Already buy</h3></Link>: buyForm}
           </div>
-          <div id="modal" style={{display: qr !== "" ? 'block' : 'none' }}> 
-          
-          <img id="logo-qr" src="https://pp.js.org/img/PromptPay-logo.jpg"/>
-          <h2> Prompt Pay accout : 081-5623390</h2>
-          <img id="imgqr" src={qr} />
-          <h2>name accout : TDA insurance</h2>
-          <h2>amount : {Intl.NumberFormat().format(packages.premium)} Baht</h2>
-          <br></br>
-      <button onClick={()=>navigate("/")}>Done</button>
-    </div>
         </div>
       </div>
 )

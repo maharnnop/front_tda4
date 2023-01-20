@@ -2,19 +2,25 @@ import React, { Component, useState, useEffect} from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, Link,useNavigate,useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import './InvestDetail.css'
+import RadialBar from "../Invest/RadialBar";
+import LoadingSpinner from "../Loading/Loading"
 
 const InvestDetail =() =>{
     const navigate = useNavigate();
     const user_id =jwt_decode(localStorage.getItem("jwt"))['user_id']
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-    const [packages, setPackages] = useState([]);
+    const [packages, setPackages] = useState({});
+    const [chart, setChart] = useState([])
+    const [isLoading, setIsLoading] =useState(false)
     const [userData, setUserData] = useState(true)
     const { id } = useParams();
     const [investing, setInvesting] = useState({insure_id:id,invest_id:user_id})
     const [qr, setQr] = useState('');
     const url = 'http://localhost:8000';
     const getPackages= () =>{
+      setIsLoading(true)
       axios.get(url + "/user/"+user_id,{
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
       })
@@ -28,6 +34,8 @@ const InvestDetail =() =>{
         })
         .then((res) => {
           setPackages(res.data);
+          setChart(<RadialBar percent={parseInt(res.data.fund) *100/parseInt(res.data.init_fund)} />)
+          setIsLoading(false)
         })
   
         .catch((err) => console.log(err));
@@ -54,18 +62,6 @@ const InvestDetail =() =>{
           console.log(res.data);
           alert("Invest completed");
           navigate("/invest");
-
-      //   axios.post(url +"/qrgen/generate",{
-      //     amount: parseFloat(packages.cost)
-      // })
-      // .then(res =>{
-      //   console.log('good', res)
-      //   console.log(res);
-      //   setQr(res.data.Result)
-      // })
-      // .catch(err =>{
-      //   console.log('bad', err)
-      // })
           
         })
   
@@ -77,10 +73,9 @@ const InvestDetail =() =>{
     };
    
     const buyForm = ( 
-      <form onSubmit={handleBuy}>
-        init_fund : {packages.init_fund}<br/>
-        currenly : {packages.fund}<br/>
-        invest: <input type="number" name="cost" onChange={handleChange} required/><br/>
+      <form className="buyform" onSubmit={handleBuy}>
+       
+        invest : <input type="number" name="cost" onChange={handleChange} required/><br/>
         <input className="buyBtn" type="submit" value="BUY" />
         
       </form>
@@ -88,28 +83,30 @@ const InvestDetail =() =>{
     return (
       <div>
         <div className="box-card">
-          <img src={packages.img_url} />
             <h1>{packages.name}</h1>
+        {isLoading ? <LoadingSpinner /> : null}
+          {/* <img className="icon" src={packages.img_url} /> */}
             {/* <h2>{Intl.NumberFormat().format(packages.premium)} Baht / Year</h2> */}
-          <div>
-            <div>
-              <b>for </b>
+          <div className="invest-detail">
+            {chart}
+            <div className="descript">
+              <h3><span>Description : </span></h3>
               {/* {packages.type === undefined ? null : packages.type.join(",")} */}
-              <p>{packages.descript}</p>
-              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> :userData ? <h3>already buy</h3>: buyForm}
+              <h4>  - {packages.descript}</h4>
+              <h3><span>Premium : </span>{packages.premium}</h3>
+              <h3><span>Compensate : </span>{packages.compensation}</h3>
+              </div>
+              <div className="des2">
+              init_fund : {packages.init_fund}<br/>
+              currenly : {packages.fund}<br/>
+              </div>
+              <div className="buyform">
+              {localStorage.getItem("jwt") === null ? <h3>Login to buy</h3> :
+              userData ? <h3>already buy</h3>: buyForm}
+              </div>
               
-            </div>
           </div>
-          <div id="modal" style={{display: qr !== "" ? 'block' : 'none' }}> 
-          
-          <img id="logo-qr" src="https://pp.js.org/img/PromptPay-logo.jpg"/>
-          <h2> Prompt Pay accout : 081-5623390</h2>
-          <img id="imgqr" src={qr} />
-          <h2>name accout : TDA insurance</h2>
-          <h2>amount : {Intl.NumberFormat().format(packages.premium)} Baht</h2>
-          <br></br>
-      <button onClick={()=>navigate("/")}>Done</button>
-    </div>
+         
         </div>
       </div>
 )
