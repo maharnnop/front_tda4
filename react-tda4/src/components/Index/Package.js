@@ -15,7 +15,6 @@ return (
 </div>
 <div className="detail">
   <h2 className="name">{props.detail.name}</h2>
-  {/* <p>{props.detail.descript}</p> */}
   <h3><span>premium : </span>{cost}  Baht </h3>
   <h3><span>compensate : </span>{props.detail.compensation} Baht</h3>
   <h4><span>click to see detail</span></h4>
@@ -28,7 +27,6 @@ return (
 </div>
 <div className="detail detail-invest">
   <h2 className="name">{props.detail.name}</h2>
-  {/* <p>{props.detail.descript}</p> */}
   <h3>raise funds : <br/>{Intl.NumberFormat().format(props.detail.fund)} /{Intl.NumberFormat().format(props.detail.init_fund)}  Baht </h3>
   <div className="radialbar">
   <RadialBar percent={props.detail.fund *100/props.detail.init_fund}/>

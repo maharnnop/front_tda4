@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect} from "react";
+import React, {  useState, useEffect} from "react";
 import axios from "axios";
-import { BrowserRouter, Routes, Route, Link,useNavigate,useParams } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import './InvestDetail.css'
 import RadialBar from "../Invest/RadialBar";
@@ -85,13 +85,10 @@ const InvestDetail =() =>{
         <div className="box-card">
             <h1>{packages.name}</h1>
         {isLoading ? <LoadingSpinner /> : null}
-          {/* <img className="icon" src={packages.img_url} /> */}
-            {/* <h2>{Intl.NumberFormat().format(packages.premium)} Baht / Year</h2> */}
           <div className="invest-detail">
             {chart}
             <div className="descript">
               <h3><span>Description : </span></h3>
-              {/* {packages.type === undefined ? null : packages.type.join(",")} */}
               <h4>  - {packages.descript}</h4>
               <h3><span>Premium : </span>{packages.premium}</h3>
               <h3><span>Compensate : </span>{packages.compensation}</h3>

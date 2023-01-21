@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import './Signup.css'
-// import { ContainerFlex, InputBox, Label } from "../StylesPages/ProfileStyles";
-// import { BackgroundImg2, Header2, BackdropBox2, ContainInput } from "../StylesPages/SignupStyles";
-
-
 import jwt_decode from "jwt-decode";
-// import './CardPackage.css'
-// const config = require("../../config.json");
+
 const SignUp = (props) => {
   const navigate = useNavigate();
   const [signUpData, setSignUpData] = useState({});

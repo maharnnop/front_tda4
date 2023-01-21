@@ -1,0 +1,23 @@
+.input-login input{
+    /* width: 230px; */
+    margin: 10px;
+}
+.login-btn{
+    width: 100px;
+    height: 30px;
+}
+@media screen and (max-width: 600px) {
+    .input-login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .input-login input{
+         margin: auto;
+        margin-top: 10px; 
+    }
+    .login-btn{
+        width: 100px;
+        height: 30px;
+    }
+}

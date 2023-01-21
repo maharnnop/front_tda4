@@ -13,8 +13,6 @@ const PackageDetail =() =>{
     const [userData, setUserData] = useState(true)
     const [packages, setPackages] = useState([]);
     const [isLoading, setIsLoading] =useState(false)
-    const [cars, setCars] = useState([]);
-    const [qr, setQr] = useState('');
     const { id } = useParams();
     const url = 'http://localhost:8000';
     const getPackages= () =>{
@@ -78,12 +76,10 @@ const PackageDetail =() =>{
         <div className="box-card">
             <h1>{packages.name}</h1>
             {isLoading ? <LoadingSpinner /> : null}
-            {/* <h2>{Intl.NumberFormat().format(packages.premium)} Baht / Year</h2> */}
           <div className="insure-detail">
           <img className="img-detail" src={packages.img_url} />
             <div className="descript-insure">
               <h3><span>Description : </span></h3>
-              {/* {packages.type === undefined ? null : packages.type.join(",")} */}
               <h3> - {packages.descript}</h3>
               <h3><span>Premium : </span>{packages.premium}</h3>
               <h3><span>Compensate : </span>{packages.compensation}</h3>

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import axios from "axios";
 import Package from "./Package";
 import './Index.css'
@@ -13,7 +13,6 @@ const Index = () =>{
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     axios.get(url + "/insure/").then((res) => {
-        console.log(res);
       let pack = res.data.filter(item=>item.release)
       .map((item) => {
         return <Package key={item.id} detail={item} />;

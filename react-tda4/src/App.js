@@ -19,18 +19,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/admin" element={<Admin />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/packages/:id" element={<PackageDetail />} />
           <Route path="/fund/:id" element={<InvestDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/invest" element={<Invest />} />
-          {/* <Route path="/profile" element={<Profile />} /> */}
         </Routes>
       </main>
       <footer>
-        <h2>insurances fun </h2>
+        <h2>insurances funds </h2>
         <h3><span>About us : </span>@KWANMHN</h3>
       </footer>
     </div>

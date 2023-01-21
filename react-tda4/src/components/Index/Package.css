@@ -17,6 +17,7 @@
     font-size: 30px;
 }
 .detail,.card-header{
+    z-index: 1;
     position: relative;
     overflow: hidden;
     /* width: 100%; */
@@ -28,7 +29,7 @@
     
 }
 .main:hover .detail{
-    bottom: 100px;
+    bottom: 120px;
 }
 
 .main:hover .card-header{

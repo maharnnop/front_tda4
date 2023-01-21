@@ -3,13 +3,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../Loading/Loading";
 import './Profile.css'
-// import { ContainerFlex, InputBox, Label } from "../StylesPages/ProfileStyles";
-// import { BackgroundImg2, Header2, BackdropBox2, ContainInput } from "../StylesPages/SignupStyles";
-
 
 import jwt_decode from "jwt-decode";
-// import './CardPackage.css'
-// const config = require("../../config.json");
+
 const Profile = () => {
     const user_id =jwt_decode(localStorage.getItem("jwt"))['user_id']
   const navigate = useNavigate();
@@ -52,9 +48,9 @@ useEffect(()=>{
         const insure =[]
         res.data.users_user_insure.map(item=>{
           let ht = [<form className="mypack" name={item.id} onSubmit={handledelete}>
-                      <h3><span></span>{item.insure.name}</h3>
-                      <h3><span>premium : </span>{item.insure.premium}</h3>
-                      <h3><span>compensate : </span>{item.insure.compensation}</h3>
+                      <h3 className="pack-name"><span></span>{item.insure.name}</h3>
+                      <h3 className="pack-pre"><span>premium : </span>{item.insure.premium}</h3>
+                      <h3 className="pack-com"><span>compensate : </span>{item.insure.compensation}</h3>
                       <input className="del-btn" type="submit" value="Remove"/>
           </form>]
           insure.push(ht)

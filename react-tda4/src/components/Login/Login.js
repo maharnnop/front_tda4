@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-import { BrowserRouter, Routes, Route, Link, Navigation } from "react-router-dom";
+import {  Link} from "react-router-dom";
+import './Login.css'
 
 const Login = ()=>{
   const navigate = useNavigate();
@@ -43,12 +43,12 @@ const Login = ()=>{
     
             <h1>Welcome Back !</h1>
     
-            <form onSubmit={handleSubmit}>
+            <form className="input-login" onSubmit={handleSubmit}>
               <input type="text" placeholder="Username" name="username" onChange={handleChange}/>{" "}
               
               <input type="password" placeholder="Password" name="password" onChange={handleChange}/>{" "}
               
-              <input type="submit" value='Login'/>
+              <input className="login-btn" type="submit" value='Login'/>
             </form>
             <br/> 
             <Link to="/signup" >

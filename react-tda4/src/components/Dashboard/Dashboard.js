@@ -1,14 +1,13 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import DonutChart from "./Chart";
 import LoadingSpinner from "../Loading/Loading";
 import './Dashboard.css'
 
 
 import jwt_decode from "jwt-decode";
-// import './CardPackage.css'
-// const config = require("../../config.json");
+
 const Dashboard = () => {
     const user_id =jwt_decode(localStorage.getItem("jwt"))['user_id']
   const navigate = useNavigate();
@@ -18,11 +17,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const url = 'http://localhost:8000';
 
-  // const handleEdit =(e) =>{
-  //   e.preventDefault()
-  //   console.log(e.target.name);
-  //   console.log(e.target.cost.value);
-  // }
+  
   const handleEdit = (e) => {
     e.preventDefault();
     axios.defaults.xsrfCookieName = 'csrftoken'
@@ -30,13 +25,10 @@ const Dashboard = () => {
     axios
       .patch(url + "/insure/invest/"+e.target.name, {
         invest_id:user_id,
-        cost:e.target.cost.value},{
-        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}
-      })
+        cost:e.target.cost.value},
+        {headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}`}})
       .then((res) => {
-        console.log(res);
         navigate("/invest");
-        // document.cookies.set("jwt",token)
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -72,9 +64,9 @@ useEffect(()=>{
         const chart_name =[]
         res.data.users_invest_insure.map(item=>{
           let ht = [<form name={item.id} className="myfund" onSubmit={handleEdit}>
-                      <h4>{item.insure.name}</h4>
-                      <h4>invest : <input name="cost" defaultValue={item.cost}/></h4>
-                      <h4>revenue : {item.revenue}</h4>
+                      <h4 className="fund-name">{item.insure.name}</h4>
+                      <h4 className="fund-invest"> invest : <input name="cost" defaultValue={item.cost}/></h4>
+                      <h4 className="fund-rev">revenue : {item.revenue}</h4>
                       <input className="Edit-btn" type="submit" value="edit" />
                       <button className="del-btn" name={item.id} onClick={handleDelete}>Remove</button>
           </form>]
@@ -92,18 +84,9 @@ useEffect(()=>{
       })
 },[])
 
-
-
-  
-
- 
-
-  
-
   return (
     <div>
         <h1>summary Chart</h1>
-            {/* <DonutChart data={chartData}/> */}
             <div className="chart">
               {chartData}
               </div>

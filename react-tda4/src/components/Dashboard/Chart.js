@@ -8,23 +8,9 @@ class Donut extends Component {
     this.state = {
       series: props.data[0],
       options: {
-        chart: {
-          width: 380,
-        },
+        chart: {width: 380,},
         labels: props.data[1],
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200,
-              },
-              legend: {
-                position: "bottom",
-              },
-            },
-          },
-        ],
+        responsive: [{breakpoint: 480,options: {chart: {width: 200,},legend: {position: "bottom",},},},],
       },
     };
   }
