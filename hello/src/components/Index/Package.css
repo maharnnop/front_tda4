@@ -1,0 +1,47 @@
+.main{
+    /* border: 10px solid rgb(240, 115, 115); */
+    border-radius: 10%;
+    height: 250px;
+    /* background-color: rgb(255, 219, 219);; */
+    background-color: white;
+    margin: 30px;
+    overflow: hidden;
+}
+.icon{
+    padding-top: 0px;
+    height: 100px;
+    width: auto;
+}
+.name{
+    color: red;
+    font-size: 30px;
+}
+.detail,.card-header{
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+    /* width: 100%; */
+    bottom: -50px;
+    background: #fff;
+    padding: 10px;
+    transition: 0.5s;
+    /* visibility: hidden; */
+    
+}
+.main:hover .detail{
+    bottom: 120px;
+}
+
+.main:hover .card-header{
+    bottom: 120px;
+}
+.main:hover{
+    box-sizing: border-box;
+    box-shadow:  3px 3px rgba(0,0,0,0.5);
+}
+.detail h3,h4{
+    color: rgb(40, 40, 40);
+}
+.main:hover .detail-invest{
+    bottom: 200px;
+}

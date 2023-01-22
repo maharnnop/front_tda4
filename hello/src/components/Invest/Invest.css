@@ -1,0 +1,28 @@
+
+.container-fund{
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    /* margin-left: 100px;
+    margin-right: 100px; */
+    justify-content: center;
+}
+
+  
+@media screen and (max-width: 1000px) {
+    .container-fund{
+        display: grid;
+        grid-template-columns: 300px 300px;
+        margin: auto;
+        justify-content: center;
+    }
+    
+  }
+  @media screen and (max-width: 750px) {
+    .container-fund{
+        display: grid;
+        margin: auto;
+        grid-template-columns: 300px ;
+       
+        justify-content: center;
+    }
+  }

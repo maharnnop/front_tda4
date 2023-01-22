@@ -1,0 +1,29 @@
+.container-package{
+    display: grid;
+    grid-template-columns: 300px 300px 300px ;
+    /* margin-left: 100px;
+    margin-right: 100px; */
+    justify-content: center;
+}
+h1{
+    background-color: #0f0e9f;
+    margin-top: 0;
+    padding: 20px;
+    color: white;
+}
+@media screen and (max-width: 1000px) {
+    .container-package{
+        margin: auto;
+        grid-template-columns: 300px 300px;
+       
+        justify-content: center;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .container-package{
+        margin: auto;
+        grid-template-columns: 300px ;
+       
+        justify-content: center;
+    }
+  }
